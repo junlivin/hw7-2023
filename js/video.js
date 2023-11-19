@@ -9,7 +9,11 @@ window.addEventListener("load", function() {
 document.querySelector("#play").addEventListener("click", function() {
 	console.log("Play Video");
 	video.play();
-	document.querySelector("#volume").textContent = "100%";
+	if(video.volume === 0){
+		document.querySelector("#volume").textContent = '0%';
+	}else{
+		document.querySelector("#volume").textContent = document.querySelector("#slider").value + '%';
+	}
 });
 
 
@@ -58,9 +62,14 @@ document.querySelector("#mute").addEventListener("click", function() {
 });
 
 document.querySelector("#slider").addEventListener("change", function() {
-	video.volume = this.value/100;
+	if (video.volume === 0){
+		video.volume = 0;
+		document.querySelector("#volume").textContent = '0%';
+	} else {
+		video.volume = this.value/100;
+		document.querySelector("#volume").textContent = this.value + '%';
+	}
 	console.log(video.volume);
-	document.querySelector("#volume").textContent = this.value + '%';
 });
 
 document.querySelector("#vintage").addEventListener("click", function() {
